@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         Jasond - HDHive
+// @name         HDHive-Enhance
 // @namespace    http://tampermonkey.net/
 // @version      1.0.2
 // @description  1.列表页：隐藏轮播、筛选。 2.详情页：隐藏Header，自动定位。 3.点击标题自动复制。 4.翻页器：苹果液体玻璃风格重构，统一纯净线性图标，支持完美的水平/垂直布局切换。

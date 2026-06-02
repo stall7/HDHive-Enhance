@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         HDHive-Enhance
+// @name         Jasond - HDHive
 // @namespace    http://tampermonkey.net/
 // @version      1.0.2
 // @description  1.列表页：隐藏轮播、筛选。 2.详情页：隐藏Header，自动定位。 3.点击标题自动复制。 4.翻页器：苹果液体玻璃风格重构，统一纯净线性图标，支持完美的水平/垂直布局切换。
@@ -37,7 +37,7 @@
     const isListPage = path === '/' || path === '/movie' || path === '/movie/' || path === '/tv' || path === '/tv/';
     const isDetailPage = (path.startsWith('/movie/') && path.length > 7) || (path.startsWith('/tv/') && path.length > 4);
 
-    window.scrollTo = function (x, y) {
+    window.scrollTo = function(x, y) {
         if (pagingLock) return;
         return originalScrollTo.apply(this, arguments);
     };
@@ -55,40 +55,40 @@
             pointer-events: none; transition: opacity 0.3s ease; opacity: 0;
             backdrop-filter: blur(10px); box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
-        
+
         /* 1. 玻璃态容器基底 */
         div[class*="mui-jt6puj"] {
             position: fixed !important; z-index: 10000 !important;
             display: flex !important; justify-content: center !important; align-items: center !important;
-            
+
             /* 苹果毛玻璃核心参数 */
             background: rgba(255, 255, 255, 0.65) !important;
             backdrop-filter: blur(24px) saturate(180%) !important;
             -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
             border: 1px solid rgba(255, 255, 255, 0.8) !important;
             box-shadow: 0 10px 32px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255,255,255,0.6) !important;
-            
+
             width: auto !important; min-width: max-content !important;
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
         }
 
         /* 2. 动态布局样式 (JS 注入 Class 控制) */
         .gm-layout-horizontal {
-            bottom: 30px !important; left: 50% !important; transform: translateX(-50%) !important;
+            bottom: 60px !important; left: 50% !important; transform: translateX(-50%) !important;
             flex-direction: row !important;
-            padding: 8px 12px !important; 
+            padding: 8px 12px !important;
             border-radius: 40px !important; /* 大胶囊 */
             gap: 6px !important;
         }
 
         .gm-layout-vertical {
-            bottom: 30px !important; right: 30px !important; left: auto !important; transform: none !important;
+            bottom: 60px !important; right: 30px !important; left: auto !important; transform: none !important;
             flex-direction: column !important;
-            padding: 14px 10px !important; 
+            padding: 14px 10px !important;
             border-radius: 24px !important; /* iOS 圆角矩形 */
             gap: 10px !important;
         }
-        
+
         /* 3. 彻底隐藏原生带文字的页码组件 */
         .gm-hidden-native { display: none !important; }
 
@@ -112,38 +112,38 @@
 
         /* 6. 高级按钮交互系统 (统配自建按钮和原生按钮) */
         .custom-nav-btn, .gm-native-btn button {
-            min-width: 36px !important; width: 36px !important; height: 36px !important; 
+            min-width: 36px !important; width: 36px !important; height: 36px !important;
             border-radius: 50% !important; /* 正圆形悬停区 */
             border: none !important; background: transparent !important; cursor: pointer !important;
             display: flex !important; align-items: center !important; justify-content: center !important;
             transition: all 0.2s ease !important; padding: 0 !important; margin: 0 !important;
             color: #333 !important; /* 图标主色调 */
         }
-        
-        .custom-nav-btn:hover, .gm-native-btn button:hover { 
-            background: rgba(0, 0, 0, 0.06) !important; 
+
+        .custom-nav-btn:hover, .gm-native-btn button:hover {
+            background: rgba(0, 0, 0, 0.06) !important;
         }
-        .custom-nav-btn:active, .gm-native-btn button:active { 
-            transform: scale(0.85) !important; 
+        .custom-nav-btn:active, .gm-native-btn button:active {
+            transform: scale(0.85) !important;
             background: rgba(0, 0, 0, 0.1) !important;
         }
 
         /* 统一所有 SVG 图标的视觉重量 */
-        .custom-nav-btn svg, .gm-native-btn button svg { 
-            width: 20px !important; height: 20px !important; display: block !important; 
+        .custom-nav-btn svg, .gm-native-btn button svg {
+            width: 20px !important; height: 20px !important; display: block !important;
             stroke-width: 2px !important; fill: none !important; stroke: currentColor !important;
         }
-        
+
         /* 覆盖原生按钮的奇怪阴影和背景 */
         .gm-native-btn button { box-shadow: none !important; color: #555 !important; }
         .gm-native-btn button.Mui-disabled { opacity: 0.3 !important; cursor: not-allowed !important; background: transparent !important; }
 
         /* 7. 暗黑模式适配 (Dark Mode Glassmorphism) */
         @media (prefers-color-scheme: dark) {
-            div[class*="mui-jt6puj"] { 
-                background: rgba(30, 30, 30, 0.6) !important; 
-                border: 1px solid rgba(255, 255, 255, 0.12) !important; 
-                box-shadow: 0 10px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255,255,255,0.08) !important; 
+            div[class*="mui-jt6puj"] {
+                background: rgba(30, 30, 30, 0.6) !important;
+                border: 1px solid rgba(255, 255, 255, 0.12) !important;
+                box-shadow: 0 10px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255,255,255,0.08) !important;
             }
             #gm-custom-page { color: #f5f5f5 !important; }
             .custom-nav-btn, .gm-native-btn button { color: #e0e0e0 !important; }
